@@ -1,6 +1,9 @@
 package hu.bme.mit.spaceship;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -98,6 +101,34 @@ public class GT4500Test {
 
     // Assert
     assertEquals(false, result);
+  }
+  @Test
+  public void hianyzotesztesetek(){
+    // Arrange
+    assertFalse(ship.fireLaser(null));
+    // Act
+    when(pr.fire(anyInt())).thenReturn(true);
+    when(pr.isEmpty()).thenReturn(false);
+    when(sc.fire(anyInt())).thenReturn(false);
+    when(sc.isEmpty()).thenReturn(true);
+    assertTrue(ship.fireTorpedo(FiringMode.SINGLE));
+    assertTrue(ship.fireTorpedo(FiringMode.SINGLE));
+    when(pr.fire(anyInt())).thenReturn(false);
+    when(pr.isEmpty()).thenReturn(true);
+    assertFalse(ship.fireTorpedo(FiringMode.SINGLE));
+    when(sc.fire(anyInt())).thenReturn(true);
+    when(sc.isEmpty()).thenReturn(false);
+    assertTrue(ship.fireTorpedo(FiringMode.ALL));
+    assertTrue(ship.fireTorpedo(FiringMode.SINGLE));
+    assertTrue(ship.fireTorpedo(FiringMode.SINGLE));
+    when(pr.fire(anyInt())).thenReturn(false);
+    when(pr.isEmpty()).thenReturn(true);
+    when(sc.fire(anyInt())).thenReturn(false);
+    when(sc.isEmpty()).thenReturn(true);
+    assertFalse(ship.fireTorpedo(FiringMode.SINGLE));
+    assertFalse(ship.fireTorpedo(FiringMode.ALL));
+
+    // Assert
   }
 
 }
