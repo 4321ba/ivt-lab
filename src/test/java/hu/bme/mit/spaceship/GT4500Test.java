@@ -12,7 +12,11 @@ public class GT4500Test {
 
   @BeforeEach
   public void init(){
-    this.ship = new GT4500();
+    TorpedoStore pr = mock(TorpedoStore.class);
+    TorpedoStore sc = mock(TorpedoStore.class);
+    when(pr.fire(anyInt())).thenReturn(true);
+    when(sc.fire(anyInt())).thenReturn(true);
+    this.ship = new GT4500(pr,sc);
   }
 
   @Test
